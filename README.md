@@ -6,4 +6,4 @@ Gambler Engagement Extraction (based on alpha rhythm)
 - band-power-baseline-sasha.ipynb - an example of baseline task - with eyes closed and opened
 
 ## References
-[1] https://scholarsmine.mst.edu/cgi/viewcontent.cgi?article=8812&context=masters_theses 
+[1] [Neural correlates of flow, boredom, and anxiety in gaming](https://scholarsmine.mst.edu/cgi/viewcontent.cgi?article=8812&context=masters_theses)
