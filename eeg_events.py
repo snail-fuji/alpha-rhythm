@@ -5,8 +5,8 @@ import pandas as pd
 
 def get_paths(name):
     return (
-        f"/home/anatoli/Документы/skywind/eeg-playground/sasha-data/processed/events-{name}.csv",
-        f"/home/anatoli/Документы/skywind/eeg-playground/sasha-data/processed/{name}.raw.fif"
+        f"./valid-data/processed/events-{name}.csv",
+        f"./valid-data/processed/{name}.raw.fif"
     )
 
 def save_events(raw, events_df, name):
