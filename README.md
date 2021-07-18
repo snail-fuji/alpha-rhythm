@@ -6,6 +6,7 @@ Gambler Engagement Extraction (based on alpha rhythm)
 - band-power-baseline-sasha.ipynb - an example of baseline task - with eyes closed and opened
 
 ## Instruction
+- Install dependencies with `pip install -r ./requirements.txt`
 - Download subject-* directories to ./valid-data dir
 - Run all cells in eeg-converter.ipynb to get files with events and related alpha rhythm
 - Run all cells in environment.ipynb to get user engagement change for action-state space
