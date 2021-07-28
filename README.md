@@ -7,7 +7,7 @@ Gambler Engagement Extraction (based on alpha rhythm)
 
 ## Instruction
 - Install dependencies with `pip install -r ./requirements.txt`
-- Download subject-* directories to ./valid-data dir
+- Download subject-* directories to ./valid-data dir. [Google Drive Link](https://drive.google.com/drive/folders/1bACGHVf_auHJ2evC7PB9obOk9__Q-16Q?usp=sharing)
 - Run all cells in eeg-converter.ipynb to get files with events and related alpha rhythm
 - Run all cells in environment.ipynb to get user engagement change for action-state space
 
