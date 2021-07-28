@@ -24,7 +24,7 @@ def save_events(raw, raw_alpha, events_df, name):
     events_df.to_csv(events_path, index=False)
     
 def iterate_events(name, duration=1):
-    events_path, raw_path = get_paths(name)
+    _, events_path, raw_path = get_paths(name)
     
     raw = mne.io.read_raw_fif(raw_path)
     events_df = pd.read_csv(events_path)

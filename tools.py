@@ -31,34 +31,31 @@ def read_signal(name, ch_names, ch_types, sampling_freq):
     return raw
 
 def get_alpha_amplitude(raw, sampling_freq, channels, stim_channel_name=None):
-    channel_raw = raw.copy().pick(channels).get_data(channels).mean(axis=0)
-    raw = raw.copy().filter(7, 13)
-    channel_alpha = raw.get_data()[0]
-    alpha_amplitude = pd.Series(np.abs(channel_alpha))\
-        .rolling(sampling_freq * 3, center=True).quantile(0.6).fillna(0).tolist()
-    alpha_std = pd.Series(np.abs(channel_alpha))\
-        .rolling(sampling_freq * 3, center=True).std().fillna(0).tolist()
+    channel_raw = raw.copy().pick(channels).get_data(channels)
+    channel_fft = np.abs(mne.time_frequency.stft(channel_raw, sampling_freq, 16)[:, 15:20, :])
     
-    if not stim_channel_name:
-        stim_channel = np.zeros(channel_alpha.shape[0])
-        event_duration = 10 * sampling_freq
-        stim_channel[np.where(np.arange(stim_channel.shape[0]) % event_duration == 0)] = 1
+    channel_alpha = channel_fft.mean(axis=0).mean(axis=0)
+    
+#     if not stim_channel_name:
+#         stim_channel = np.zeros(channel_alpha.shape[0])
+#         event_duration = 10 * sampling_freq
+#         stim_channel[np.where(np.arange(stim_channel.shape[0]) % event_duration == 0)] = 1
 
-        stim_channel[np.where(
-            (stim_channel.cumsum() % 2 == 0) & \
-            (stim_channel > 0)
-        )] += 1
-    else:
-        stim_channel = raw.copy().pick([stim_channel_name]).get_data([stim_channel_name]).reshape(-1)
+#         stim_channel[np.where(
+#             (stim_channel.cumsum() % 2 == 0) & \
+#             (stim_channel > 0)
+#         )] += 1
+#     else:
+#         stim_channel = raw.copy().pick([stim_channel_name]).get_data([stim_channel_name]).reshape(-1)
     
     signal_info = mne.create_info(
-        ["channel", "rhythm", "amplitude", "std", "stim"], 
-        ch_types=["eeg", "eeg", "misc", "misc", "stim"], 
-        sfreq=sampling_freq
+        ["amplitude"], 
+        ch_types=["misc"], 
+        sfreq=sampling_freq // 16
     )
     signal_info["start_time"] = raw.info["start_time"]
     
-    data = [channel_raw, channel_alpha, alpha_amplitude, alpha_std, stim_channel]
+    data = [channel_alpha]
     
     return mne.io.RawArray(data, signal_info)
 
